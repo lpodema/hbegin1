@@ -61,9 +61,9 @@ public class HibernateXMLTest {
             logger.info ("Creating values to insert...");
             EmployeeXML[] values = new EmployeeXML[]{
 
-                    new EmployeeXML ("Lionel Messi", "Test", new Date()),
-                    new EmployeeXML ("Cristiano Ronaldo", "Test", new Date()),
-                    new EmployeeXML ("Zlatan Ibrahimovic", "Test", new Date())
+                    new EmployeeXML ("Homer Simpson", "Test", new Date()),
+                    new EmployeeXML ("Bart Simpson", "Test", new Date()),
+                    new EmployeeXML ("Lisa Simpson", "Test", new Date())
             };
 
             // Save the data.

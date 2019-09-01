@@ -4,12 +4,7 @@ package com.educacionit.hibernate.beginners.entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity (name =  "Employee")
@@ -18,9 +13,26 @@ public class EmployeeAnnotation {
 
 
 	@Id
+	@GeneratedValue (strategy=GenerationType.AUTO, generator = "employee_seq")
+	@SequenceGenerator (name="employee_seq", sequenceName = "employee_seq")
+	@Column (name="emp_id", nullable=false, unique=true)
+	private int id;
+
+	/* PARA MYSQL
+	@Id
 	@GeneratedValue (strategy=GenerationType.IDENTITY)
 	@Column (name="emp_id", nullable=false, unique=true)
 	private int id;
+	 */
+
+	/*
+	PARA POSTGRES
+	@Id
+	@GeneratedValue (strategy=GenerationType.AUTO, generator = "employee_seq")
+	@SequenceGenerator (name="employee_seq", sequenceName = "employee_seq")
+	@Column (name="emp_id", nullable=false, unique=true)
+	private int id;
+	 */
 	
 	@Column(name="emp_name", length=28, nullable=false)
 	private String name;

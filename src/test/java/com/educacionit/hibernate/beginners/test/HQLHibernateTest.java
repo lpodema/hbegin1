@@ -60,6 +60,10 @@ public class HQLHibernateTest {
 
             Assertions.assertFalse (list.isEmpty (), "There are not countries!");
 
+            list.forEach ((e) ->{
+               logger.info (String.format ("Country %s", e.getName()));
+            });
+
         } catch (Exception ex) {
 
             String m = String.format ("Problems executing test %s", ex.getMessage ());
@@ -91,6 +95,9 @@ public class HQLHibernateTest {
 
             Assertions.assertFalse (list.isEmpty (), "There are not countries by code \"AR\"!");
 
+            list.forEach ((e) ->{
+                logger.info (String.format ("Country %s", e.getName()));
+            });
         } catch (Exception ex) {
 
             String m = String.format ("Problems executing test %s", ex.getMessage ());
@@ -121,7 +128,7 @@ public class HQLHibernateTest {
 
             logger.info (String.format ("Updating countries by code \"AR\"..."));
             Query query = session.createQuery("update Country set name = :name where code = :code");
-            query.setParameter ("name", "ANITNEGRA");
+            query.setParameter ("name", "Argentina");
             query.setParameter ("code", "AR");
             int result = query.executeUpdate();
 
@@ -202,6 +209,9 @@ public class HQLHibernateTest {
 
             Assertions.assertFalse (list.isEmpty (), "There are not countries!");
             Assertions.assertTrue (list.size () == 10, "There are not 10 countries!");
+            list.forEach ((e) ->{
+                logger.info (String.format ("Country %s", e.getName()));
+            });
 
         } catch (Exception ex) {
 

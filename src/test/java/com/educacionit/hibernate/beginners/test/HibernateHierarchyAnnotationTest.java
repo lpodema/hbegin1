@@ -5,6 +5,7 @@ package com.educacionit.hibernate.beginners.test;
 import java.util.Date;
 import java.util.List;
 
+import com.educacionit.hibernate.beginners.entity.TeacherAnnotation;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -246,5 +247,49 @@ public class HibernateHierarchyAnnotationTest {
             logger.error (e.getMessage ());
             Assertions.assertFalse (Boolean.TRUE, "Problems executing the test.");
         }
+    }
+
+    @Test
+    @DisplayName ("Create new teachers")
+    public void m7 () {
+
+
+        // Get a session.
+        Session session = null;
+        Transaction tx = null;
+        try {
+
+            logger.info("Getting a session...");
+            session = sessionFactory.openSession ();
+            tx = session.beginTransaction ();
+
+            // Set the data to save.
+            logger.info("Creating values to insert...");
+            PersonAnnotation[] values = new TeacherAnnotation[]{
+
+                    new TeacherAnnotation ("Seymour", "Skinner", new Date(), "Springfield"),
+                    new TeacherAnnotation ("Edna", "Krabappel", new Date(), "Springfield"),
+                    new TeacherAnnotation ("Elizabeth", "Hoover", new Date(), "Springfield"),
+                    new TeacherAnnotation ("Gary", "Chalmers", new Date(), "Springfield"),
+                    new TeacherAnnotation ("Jonathan", "Frink", new Date(), "Springfield")
+            };
+
+            // Save the data.
+            for (PersonAnnotation p : values) {
+
+                logger.info (String.format ("Saving value %s", p.getFirstName ()));
+                session.save (p);
+                logger.info (String.format ("Value %s saved!", p.getFirstName ()));
+            }
+            tx.commit ();
+            Assertions.assertTrue (values[0].getPersonId () > 0, String.format ("Problems creating the new worker %s", values[0].getFirstName ()));
+
+        } catch (Exception ex) {
+
+            logger.error (ex.getMessage ());
+            tx.rollback ();
+            Assertions.assertFalse (Boolean.TRUE, "Problems executing the test.");
+
+        } finally { session.close (); }
     }
 }

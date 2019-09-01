@@ -10,14 +10,24 @@ import javax.persistence.*;
     @NamedQuery(
         name  = "findCountryByName",
         query = "from Country c where c.name like :name"
+    ),
+     @NamedQuery(
+        name="findCountryByNameLikeCA",
+        query = "from Country c where c.name like :name order by cou_name desc"
     )
 })
 @NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "findCountryByNameNative",
+                query = "select c.* from country c where c.cou_name ilike :name",
+                resultClass = CountryAnnotation.class
+        ),
     @NamedNativeQuery(
-        name = "findCountryByNameNative",
-        query = "select c.* from country c where c.cou_name ilike :name",
+        name = "findCountryByNameNativeLIKECA",
+        query = "select c.* from country c where c.cou_name ilike :name order by cou_name desc",
         resultClass = CountryAnnotation.class
     )
+
 })
 @Entity (name =  "Country")
 @Table (name = "country")

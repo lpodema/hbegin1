@@ -59,6 +59,9 @@ public class AnnotationNamedQueryHibernateTest {
             logger.info ("Finding All countries by name %y%...");
             Query query = session.getNamedQuery("findCountryByName").setString ("name", "%y%");
             List<CountryAnnotation> list = query.list ();
+            list.forEach ((e) ->{
+                logger.info (String.format ("Country %s", e.getName()));
+            });
 
             Assertions.assertFalse (list.isEmpty (), "There are not countries!");
 
@@ -89,6 +92,72 @@ public class AnnotationNamedQueryHibernateTest {
             logger.info ("Finding All countries by name %A...");
             Query query = session.getNamedQuery("findCountryByNameNative").setString ("name", "A%");
             List<CountryAnnotation> list = query.list ();
+
+            Assertions.assertFalse (list.isEmpty (), "There are not countries!");
+
+        } catch (Exception ex) {
+
+            String m = String.format ("Problems executing test %s", ex.getMessage ());
+            logger.error (m);
+            Assertions.assertFalse (Boolean.TRUE, m);
+
+        } finally {
+
+            logger.info ("Closing session...");
+            session.close ();
+        }
+    }
+
+    @Test
+    @DisplayName ("Find countries by name [Native Query] like \"CA\" order DESC")
+    public void m3 () {
+
+        // Get a session.
+        Session session = null;
+        try {
+
+            logger.info ("Getting a session...");
+            session = sessionFactory.openSession ();
+
+            logger.info ("Finding All countries by name %CA...");
+            Query query = session.getNamedQuery("findCountryByNameNativeLIKECA").setString ("name", "CA%");
+            List<CountryAnnotation> list = query.list ();
+
+            Assertions.assertFalse (list.isEmpty (), "There are not countries!");
+            list.forEach ((e) ->{
+                logger.info (String.format ("Country %s", e.getName()));
+            });
+
+        } catch (Exception ex) {
+
+            String m = String.format ("Problems executing test %s", ex.getMessage ());
+            logger.error (m);
+            Assertions.assertFalse (Boolean.TRUE, m);
+
+        } finally {
+
+            logger.info ("Closing session...");
+            session.close ();
+        }
+    }
+
+    @Test
+    @DisplayName ("Find countries by name")
+    public void m4 () {
+
+        // Get a session.
+        Session session = null;
+        try {
+
+            logger.info ("Getting a session...");
+            session = sessionFactory.openSession ();
+
+            logger.info ("Finding All countries by name %y%...");
+            Query query = session.getNamedQuery("findCountryByNameLikeCA").setString ("name", "Ca%");
+            List<CountryAnnotation> list = query.list ();
+            list.forEach ((e) ->{
+                logger.info (String.format ("Country %s", e.getName()));
+            });
 
             Assertions.assertFalse (list.isEmpty (), "There are not countries!");
 
