@@ -29,6 +29,8 @@
         <mapping class="com.educacionit.hibernate.beginners.entity.PersonAnnotation" />
         <mapping class="com.educacionit.hibernate.beginners.entity.WorkerAnnotation" />
         <mapping class="com.educacionit.hibernate.beginners.entity.TeacherAnnotation" />
+        <mapping class="com.educacionit.hibernate.beginners.entity.Teacher2Annotation" />
+        <mapping class="com.educacionit.hibernate.beginners.entity.Teacher3Annotation" />
         <mapping class="com.educacionit.hibernate.beginners.entity.Person2Annotation" />
         <mapping class="com.educacionit.hibernate.beginners.entity.Person3Annotation" />
         <mapping class="com.educacionit.hibernate.beginners.entity.Employee2Annotation" />

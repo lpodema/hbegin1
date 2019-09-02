@@ -5,6 +5,7 @@ package com.educacionit.hibernate.beginners.test;
 import java.util.Date;
 import java.util.List;
 
+import com.educacionit.hibernate.beginners.entity.Teacher3Annotation;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -261,4 +262,55 @@ public class HibernateHierarchy3AnnotationTest {
             Assertions.assertFalse (Boolean.TRUE, "Problems executing the test.");
         }
     }
+
+    @Test
+    @DisplayName ("Create New Objects [Person3, Employee3, Owner2, Teacher3]")
+    public void m8 () {
+
+
+        // Get a session.
+        Session session = null;
+        Transaction tx = null;
+        try {
+
+            logger.info("Getting a session...");
+            session = sessionFactory.openSession ();
+            tx = session.beginTransaction ();
+
+            // Set the data to save.
+            logger.info("Creating new person 3...");
+            Person3Annotation person3 = new Person3Annotation ("Homer", "Simpson");
+            session.save (person3);
+
+            logger.info ("Creating new employee 3...");
+            Employee3Annotation employee3 = new Employee3Annotation ("Bart", "Simpson", "IT",
+                    new Date ());
+            session.save (employee3);
+
+            logger.info ("Creating new owner 2...");
+            Owner2Annotation owner2 = new Owner2Annotation ("Lisa", "Simpson", 1,
+                    1);
+            session.save (owner2);
+
+            logger.info ("Creating new Teacher 3...");
+            Teacher3Annotation teacher3 = new Teacher3Annotation ("Seymour", "Skinner", "Springfield",
+                    "Principal");
+            session.save (teacher3);
+
+            tx.commit ();
+
+            Assertions.assertTrue (person3.getPersonId () > 0, String.format ("Problems creating the new person 3 %s", person3.getFirstName ()));
+            Assertions.assertTrue (employee3.getPersonId () > 0, String.format ("Problems creating the new employee 3 %s", employee3.getFirstName ()));
+            Assertions.assertTrue (owner2.getPersonId () > 0, String.format ("Problems creating the new owner 2 %s", owner2.getFirstName ()));
+            Assertions.assertTrue (teacher3.getPersonId () > 0, String.format ("Problems creating the new teacher 3 %s", teacher3.getFirstName ()));
+
+        } catch (Exception ex) {
+
+            logger.error (ex.getMessage ());
+            tx.rollback ();
+            Assertions.assertFalse (Boolean.TRUE, "Problems executing the test.");
+
+        } finally { session.close (); }
+    }
+
 }

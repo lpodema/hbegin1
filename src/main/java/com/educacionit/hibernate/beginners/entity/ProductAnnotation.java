@@ -24,10 +24,10 @@ public class ProductAnnotation {
 
     @Column (name="pro_price", nullable = false)
     private Long price;
-
+/*
     @OneToOne (mappedBy="product", cascade=CascadeType.ALL)
     private ProductDetailAnnotation detail;
-
+*/
     @ManyToOne
     @JoinColumn (name="prot_id")
     private ProductTypeAnnotation type;
@@ -98,7 +98,7 @@ public class ProductAnnotation {
 
         this.price = price;
     }
-
+/*
     public ProductDetailAnnotation getDetail () {
 
         return this.detail;
@@ -108,7 +108,7 @@ public class ProductAnnotation {
 
         this.detail = detail;
     }
-
+*/
     public ProductTypeAnnotation getType () {
 
         return this.type;

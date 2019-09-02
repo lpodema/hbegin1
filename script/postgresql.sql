@@ -534,3 +534,56 @@ TABLESPACE pg_default;
 
 ALTER TABLE public.category
     OWNER to postgres;
+
+
+
+-- Table: public.teacher
+
+-- DROP TABLE public.teacher;
+
+    CREATE TABLE public.teacher
+    (
+        per_person_id integer NOT NULL,
+        per_first_name character varying(50) COLLATE pg_catalog."default",
+        per_last_name character varying(50) COLLATE pg_catalog."default",
+        school character varying(50),
+    	  subject character varying(50),
+        CONSTRAINT teacher_pkey PRIMARY KEY (per_person_id)
+    )
+    WITH (
+        OIDS = FALSE
+    )
+    TABLESPACE pg_default;
+
+    ALTER TABLE public.teacher
+        OWNER to dummy;
+
+
+        -- Table: public.teacher3
+
+        -- DROP TABLE public.teacher3;
+
+        CREATE SEQUENCE public.sq_teacher3
+            INCREMENT 1
+            START 1
+            MINVALUE 1
+            MAXVALUE 9223372036854775807
+            CACHE 1;
+
+        ALTER SEQUENCE public.sq_teacher3
+            OWNER TO postgres;
+
+        CREATE TABLE public.teacher3
+        (
+            per_person_id integer NOT NULL,
+            school character varying(50),
+        	subject character varying(50),
+            CONSTRAINT teacher3_pkey3 PRIMARY KEY (per_person_id)
+        )
+        WITH (
+            OIDS = FALSE
+        )
+        TABLESPACE pg_default;
+
+        ALTER TABLE public.teacher3
+            OWNER to postgres;

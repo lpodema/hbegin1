@@ -282,7 +282,7 @@ public class HibernateHierarchyAnnotationTest {
                 logger.info (String.format ("Value %s saved!", p.getFirstName ()));
             }
             tx.commit ();
-            Assertions.assertTrue (values[0].getPersonId () > 0, String.format ("Problems creating the new worker %s", values[0].getFirstName ()));
+            Assertions.assertTrue (values[0].getPersonId () > 0, String.format ("Problems creating the new teacher %s", values[0].getFirstName ()));
 
         } catch (Exception ex) {
 

@@ -5,6 +5,7 @@ package com.educacionit.hibernate.beginners.test;
 import java.util.Date;
 import java.util.List;
 
+import com.educacionit.hibernate.beginners.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -14,9 +15,6 @@ import org.slf4j.LoggerFactory;
 
 import org.junit.jupiter.api.*;
 
-import com.educacionit.hibernate.beginners.entity.Person2Annotation;
-import com.educacionit.hibernate.beginners.entity.Employee2Annotation;
-import com.educacionit.hibernate.beginners.entity.OwnerAnnotation;
 import com.educacionit.hibernate.beginners.util.HibernateUtil;
 
 
@@ -260,5 +258,55 @@ public class HibernateHierarchy2AnnotationTest {
             logger.error (e.getMessage ());
             Assertions.assertFalse (Boolean.TRUE, "Problems executing the test.");
         }
+    }
+
+    @Test
+    @DisplayName ("Create New Objects [Person2, Employee2, Owner, Teacher]")
+    public void m8 () {
+
+
+        // Get a session.
+        Session session = null;
+        Transaction tx = null;
+        try {
+
+            logger.info("Getting a session...");
+            session = sessionFactory.openSession ();
+            tx = session.beginTransaction ();
+
+            // Set the data to save.
+            logger.info("Creating new person 2...");
+            Person2Annotation person2 = new Person2Annotation ("Homer", "Simpson");
+            session.save (person2);
+
+            logger.info ("Creating new employee 2...");
+            Employee2Annotation employee2 = new Employee2Annotation ("Bart", "Simpson", "IT",
+                    new Date ());
+            session.save (employee2);
+
+            logger.info ("Creating new owner...");
+            OwnerAnnotation owner = new OwnerAnnotation ("Lisa", "Simpson", 1,
+                    1);
+            session.save (owner);
+
+            logger.info ("Creating new teacher...");
+            Teacher2Annotation teacher = new Teacher2Annotation ("Seymour", "Skinner", "Springfield",
+                    "Director");
+            session.save (teacher);
+
+            tx.commit ();
+
+            Assertions.assertTrue (person2.getPersonId () > 0, String.format ("Problems creating the new person 2 %s", person2.getFirstName ()));
+            Assertions.assertTrue (employee2.getPersonId () > 0, String.format ("Problems creating the new employee 2 %s", employee2.getFirstName ()));
+            Assertions.assertTrue (owner.getPersonId () > 0, String.format ("Problems creating the new owner %s", owner.getFirstName ()));
+            Assertions.assertTrue (teacher.getPersonId () > 0, String.format ("Problems creating the new teacher %s", teacher.getFirstName ()));
+
+        } catch (Exception ex) {
+
+            logger.error (ex.getMessage ());
+            tx.rollback ();
+            Assertions.assertFalse (Boolean.TRUE, "Problems executing the test.");
+
+        } finally { session.close (); }
     }
 }

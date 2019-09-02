@@ -9,14 +9,7 @@ import javax.persistence.*;
 @Entity(name="Teacher")
 @Table(name = "entity")
 @DiscriminatorValue("T")
-public class TeacherAnnotation extends PersonAnnotation{
-
-    @Column (name="ENT_JOINING_DATE")
-    private Date joiningDate;
-
-    @Column (name="ENT_DEPARTMENT_NAME")
-    private String departmentName;
-
+public class TeacherAnnotation extends WorkerAnnotation{
 
     public TeacherAnnotation () {
 
@@ -26,10 +19,8 @@ public class TeacherAnnotation extends PersonAnnotation{
     public TeacherAnnotation (String firstname, String lastname, Date joiningDate,
                               String departmentName) {
 
-        super (firstname, lastname);
+        super (firstname, lastname, joiningDate, departmentName);
 
-        this.joiningDate    = joiningDate;
-        this.departmentName = departmentName;
     }
 
 }

@@ -104,19 +104,19 @@ public class HibernateRelationshipAnnotationTest {
             logger.info ("Creating values to insert...");
             ProductAnnotation        p1 = new ProductAnnotation ("Apple TV", "Streaming device", Long.valueOf (100));
             ProductDetailAnnotation pd1 = new ProductDetailAnnotation (Long.valueOf (10), new Date (), "Only EEUU Enabled");
-            p1.setDetail (pd1);
+            //p1.setDetail (pd1);
             p1.setType (pt);
             pd1.setProduct (p1);
 
             ProductAnnotation        p2 = new ProductAnnotation ("Google Chrome Cast", "Streaming device", Long.valueOf (30));
             ProductDetailAnnotation pd2 = new ProductDetailAnnotation (Long.valueOf (4), new Date (), "Only EEUU Enabled");
-            p2.setDetail (pd2);
+            //p2.setDetail (pd2);
             p2.setType (pt);
             pd2.setProduct (p2);
 
             ProductAnnotation        p3 = new ProductAnnotation ("Amazon Echo", "Streaming device", Long.valueOf (199));
             ProductDetailAnnotation pd3 = new ProductDetailAnnotation (Long.valueOf (6), new Date (), "Only EEUU Enabled");
-            p3.setDetail (pd3);
+            //p3.setDetail (pd3);
             p3.setType (pt);
             pd3.setProduct (p3);
 
@@ -159,8 +159,9 @@ public class HibernateRelationshipAnnotationTest {
             Assertions.assertFalse (products.isEmpty (), "There are not products found!!!");
 
             logger.info ("Print all products info.");
-            products.forEach ( e -> logger.info (String.format ("Product %s price %d, tax %d",
-                    e.getName (), e.getPrice (), e.getDetail ().getTax ()))
+            products.forEach ( e -> logger.info (String.format ("Product %s price %d, type %s",
+                    e.getName (), e.getPrice (), e.getType().getName()))
+                    //e.getDetail ().getTax ()
             );
 
         } catch (Exception e) {
